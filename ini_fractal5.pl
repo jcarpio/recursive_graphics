@@ -10,7 +10,7 @@ my_fractal(N) :-
 	sformat(A, 'My fractal dimension ~w - ~w x ~w', [N, MaxX, MaxY]),
 	new(D, picture(A)),
 	X is MaxX div 2, Y is MaxY div 2,
-	draw_fractal1(D, N, point(X, Y), 5),
+	draw_fractal1(D, N, point(X, Y), 10),
 	send(D, size, size(MaxX,MaxY)),
 	send(D, open).
 	
@@ -41,7 +41,7 @@ draw_fractal1(Window, N, point(X, Y), Len) :-
 	   send(Pa, append, point(X11, Y11)),
 	   send(Pa, append, point(X, Y11)),
 	   send(Pa, closed, @on),
-	   send(Pa, fill_pattern,  colour(@default, 0, 0, Color))
+	   send(Pa, fill_pattern,  colour(@default, 0, 0, 0))
 	),
 
 	X1 is X - (N2 * Len) ,
@@ -50,8 +50,8 @@ draw_fractal1(Window, N, point(X, Y), Len) :-
 	Y3 is Y + (N2 * Len),
 	draw_fractal1(Window, N2, point(X1, Y1), Len),
 	draw_fractal1(Window, N2, point(X2, Y1), Len),
-	draw_fractal1(Window, N2, point(X2, Y3), Len),
-	draw_fractal1(Window, N2, point(X1, Y3), Len).
+	draw_fractal1(Window, N2, point(X2, Y3), Len).
+	% draw_fractal1(Window, N2, point(X1, Y3), Len).
 
 	
 	
