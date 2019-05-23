@@ -21,18 +21,18 @@ draw_tree(_, 1, _, _).
 draw_tree(Window, N, BranchesList, Length):-
   N > 1,
   N2 is N - 1,
-  draw_branches(Window, BranchesList, NewBranches, Length),
+  draw_branches(Window, N, BranchesList, NewBranches, Length),
   Length2 is Length * 0.7,
   draw_tree(Window, N2, NewBranches,  Length2).
   
   
   
-draw_branches(_, [], [], _).	
-draw_branches(Window, [point(X,Y)|Tail], [point(X1,Y1), point(X2, Y2)|NewBranches], Length):-
-    X1 is X - (Length * 0.9),
-	Y1 is Y - (Length * 0.8),
-	X2 is X + (Length * 1.1),
-	Y2 is Y - (Length * 1.2),
+draw_branches(_, _, [], [], _).	
+draw_branches(Window, N, [point(X,Y)|Tail], [point(X1,Y1), point(X2, Y2)|NewBranches], Length):-
+    X1 is X - (Length + Length * (1/N)),
+	Y1 is Y - (Length + Length * (1/N)),
+	X2 is X + (Length + Length * (1/N)),
+	Y2 is Y - (Length + Length * (1/N)),
 	
 	XBc1 is X - (Length * 0.2),
 	YBc1 is Y - (Length * 0.8), 
@@ -52,7 +52,7 @@ draw_branches(Window, [point(X,Y)|Tail], [point(X1,Y1), point(X2, Y2)|NewBranche
                                 ))
 	),
 	
-    draw_branches(Window, Tail, NewBranches, Length).	
+    draw_branches(Window, N, Tail, NewBranches, Length).	
 
    % |       
    % |
