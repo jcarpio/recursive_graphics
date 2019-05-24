@@ -22,13 +22,19 @@ draw_tree(Window, N, BranchesList, Length):-
   N > 1,
   N2 is N - 1,
   draw_branches(Window, BranchesList,NewBranches, Length),
-  Length2 is Length * 0.8,
+  Length2 is Length * 0.6,
   draw_tree(Window, N2, NewBranches, Length2).
   
   
+% draw_branches(+Window, +PointList, -NewPointList, +Length)
+% it is true if new branches are draw starting in points
+% included in PointList, end points of new branches are included
+% in NewPointList. Length is used to create branches.
   
 draw_branches(_, [], [], _).	
-draw_branches(Window, [point(X,Y)|Tail], [point(X1,Y1), point(X2, Y1)|NewBranches], Length):-
+draw_branches(Window, [point(X,Y)|Tail], 
+   [point(X1,Y1), point(X2, Y1)|NewBranches], Length):-
+   
     X1 is X - Length,
 	Y1 is Y - Length,
 	X2 is X + Length,
